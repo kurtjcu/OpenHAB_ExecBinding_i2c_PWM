@@ -32,9 +32,9 @@ rlyOff = 4069, 0
 
 while (True):
   # turn on and off a relay on channel O
-  pwm.setPWM(0, rlyOn)
+  pwm.setPWM(0, *rlyOn)
   time.sleep(1)
-  pwm.setPWM(0, rlyOff)
+  pwm.setPWM(0, *rlyOff)
   time.sleep(1)
 
 
