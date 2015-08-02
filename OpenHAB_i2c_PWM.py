@@ -45,8 +45,19 @@ slpTime = args.time
 
 
 
+
+
+if args.relayNum != -1:
+    print "Relay %s" % args.relayNum
+    print "Value %s" % args.valueNum
+    if args.valueNum == 1:
+        pwm.setPWM(args.relayNum, *RLYON)
+    else:
+        pwm.setPWM(args.relayNum, *RLYOFF)
+    quit()
+
 # test function
-if args.action == 'test':
+elif args.action == 'test':
     # turn on and off  relays on all channels
     print "in Test"
 
@@ -62,15 +73,6 @@ if args.action == 'test':
         pwm.setPWM(x, *RLYOFF)
 
     time.sleep(slpTime)
-    quit()
-
-elif args.relayNum != -1:
-    print "Relay %s" % args.relayNum
-    print "Value %s" % args.valueNum
-    if args.valueNum == 1:
-        pwm.setPWM(args.relayNum, *RLYON)
-    else:
-        pwm.setPWM(args.relayNum, *RLYOFF)
     quit()
 
 else:
