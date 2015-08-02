@@ -40,7 +40,7 @@ for arg in sys.argv:
 
 
 # get time from arguments
-if sys.argv[1:] == 'Time':
+if sys.argv[1:] == "Time":
     slpTime = int(sys.argv[2:])
 else:
     slpTime = 1
