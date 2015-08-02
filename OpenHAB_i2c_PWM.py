@@ -3,6 +3,7 @@
 from Adafruit_PWM_Servo_Driver import PWM
 import time
 import sys
+import argparse
 
 # ===========================================================================
 # Example Code
@@ -31,21 +32,18 @@ def setServoPulse(channel, pulse):
 
 pwm.setPWMFreq(90)                        # Set frequency to 60 Hz
 
+# Argument parsing
+parser = argparse.ArgumentParser(description='Controls PWM hat from Adafruit')
+parser.add_argument('-t', action="store", dest="slpTime", default=1, type=int, nargs='?')
+parser.add_argument('-a', action="store", dest="action", default='none',nargs='?')
+parser.add_argument('-v', action="store", dest="valueNum", default=0, type=int, nargs='?')
 
-#print arguments
-for x in range(0, 2):
-    print sys.argv[x:]
-    print type(sys.argv[x:])
+args = parser.parse_args()
 
 
 
-# get time from arguments
-if sys.argv[1:] == "Time":
-    print "found Time in arguments"
-    slpTime = int(sys.argv[2:])
-else:
-    print "did not find Time in arguments"
-    slpTime = 1
+
+
 
 
 # turn on and off  relays on all channels
