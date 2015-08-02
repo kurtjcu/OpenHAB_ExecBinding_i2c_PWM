@@ -5,15 +5,21 @@ python script and openhab examples to control an adafruit i2c PWM board via pyth
 
 #usage
 
+PWM
+---
+-p is for setting PWM ON time @output (default = 0)
+use with v- to set ON time[0-100]
+
+set out 1 to 50% on
+ sudo python OpenHAB_i2c_PWM.py -p 1 -v 50
+ 
+set out 1 to 90% on
+ sudo python OpenHAB_i2c_PWM.py -p 1 -v 90
+
 Relay
 -----
-
--r is to set a relay (default = 0)
-
+-r is to set a relay @output (default = 0)
 use with -v for value (default = 0)
-
-
-
 
 set out 1 to Off
  sudo python OpenHAB_i2c_PWM.py -r 1 -v 0
@@ -22,7 +28,15 @@ set out 1 to On
  sudo python OpenHAB_i2c_PWM.py -r 1 -v 1
 
 
+Frequency
+---------
 
+-f is to set the PWM frequency
+
+set frequency to 120 hz
+ sudo python OpenHAB_i2c_PWM.py -f 120 
+ 
+ 
 Test
 ----
 -t for time between relay sequence in seconds(optional)
