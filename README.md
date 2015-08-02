@@ -3,6 +3,30 @@ python script and openhab examples to control an adafruit i2c PWM board via pyth
 
 
 
+#setup
+
+follow all adafruit setup for smbus/i2c etc from product page.
+
+clone this repo.
+
+inside the repo directory do:
+```
+chmod +x OpenHAB_i2c_PWM.py
+```
+to make the script executable.
+
+make sure you have the openhab exec binding in your addons directory.
+
+Edit your OPENHAB  .items to contain something similar to this
+
+```
+//Exec Bindings  
+Switch i2cPWM_RLY01 "Exec" (exec) {exec=">[ON:/bin/sh@@-c@@/home/pi/OpenHAB_ExecBinding_i2c_PWM/OpenHAB_i2c_PWM.py -r 0 -v 1] >[OFF:/bin/sh@@-c@@/home/pi/OpenHAB_ExecBinding_i2c_PWM/OpenHAB_i2c_PWM.py -r 0 -v 0]"}
+Switch i2cPWM_RLY02 "Exec" (exec) {exec=">[ON:/bin/sh@@-c@@/home/pi/OpenHAB_ExecBinding_i2c_PWM/OpenHAB_i2c_PWM.py -r 1 -v 1] >[OFF:/bin/sh@@-c@@/home/pi/OpenHAB_ExecBinding_i2c_PWM/OpenHAB_i2c_PWM.py -r 1 -v 0]"}
+
+//TODO: Add PWM binding here(need to work out passing value to this binding).
+```
+
 #usage
 
 PWM
@@ -11,10 +35,14 @@ PWM
 use with v- to set ON time[0-100]
 
 set out 1 to 50% on
- sudo python OpenHAB_i2c_PWM.py -p 1 -v 50
+```
+sudo python OpenHAB_i2c_PWM.py -p 1 -v 50
+```
  
 set out 1 to 90% on
- sudo python OpenHAB_i2c_PWM.py -p 1 -v 90
+```
+sudo python OpenHAB_i2c_PWM.py -p 1 -v 90
+```
 
 Relay
 -----
@@ -22,10 +50,14 @@ Relay
 use with -v for value (default = 0)
 
 set out 1 to Off
- sudo python OpenHAB_i2c_PWM.py -r 1 -v 0
+```
+sudo python OpenHAB_i2c_PWM.py -r 1 -v 0
+```
 
 set out 1 to On
- sudo python OpenHAB_i2c_PWM.py -r 1 -v 1
+```
+sudo python OpenHAB_i2c_PWM.py -r 1 -v 1
+```
 
 
 Frequency
@@ -34,7 +66,9 @@ Frequency
 -f is to set the PWM frequency
 
 set frequency to 120 hz
- sudo python OpenHAB_i2c_PWM.py -f 120 
+```
+sudo python OpenHAB_i2c_PWM.py -f 120 
+```
  
  
 Test
