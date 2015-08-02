@@ -15,7 +15,7 @@ pwm = PWM(0x40, debug=True)
 #define On 100%
 RLYON = 0, 4069
 #define Off 0%
-RLYOFF = 4069, 0
+RLYOFF = 0, 0
 
 
 def setServoPulse(channel, pulse):
