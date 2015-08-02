@@ -20,18 +20,6 @@ RLYON = 0, 4069
 RLYOFF = 0, 0
 
 
-#def setServoPulse(channel, pulse):
-#    pulseLength = 1000000                   # 1,000,000 us per second
-#    pulseLength /= 60                       # 60 Hz
-#    print "%d us per period" % pulseLength
-#    pulseLength /= 4096                     # 12 bits of resolution
-#    print "%d us per bit" % pulseLength
-#    pulse *= 1000
-#    pulse /= pulseLength
-#    pwm.setPWM(channel, 0, pulse)
-
-#pwm.setPWMFreq(90)                        # Set frequency to 90 Hz
-
 # Argument parsing
 parser = argparse.ArgumentParser(description='Controls PWM hat from Adafruit')
 parser.add_argument('-t', action="store", dest="time", default=1, type=int, nargs='?')
@@ -62,8 +50,10 @@ if args.relayNum != -1:
 elif args.pwmNum != -1:
     print "PWM %s" % args.pwmNum
     print "Value %s" % args.valueNum
+    print "on %s" % str((args.valueNum*4069)/100)
+    print "off %s" % str(4069-((args.valueNum*4069)/100))
     if args.valueNum == 1:
-        pwm.setPWM(args.pwmNum, (args.valueNum*4069)/100, 4069-(args.valueNum*4069)/100)
+        pwm.setPWM(args.pwmNum, (args.valueNum*4069)/100, (4069-(args.valueNum*4069)/100))
     else:
         pwm.setPWM(args.pwmNum, *RLYOFF)
     quit()
