@@ -3,6 +3,9 @@ python script and openhab examples to control an adafruit i2c PWM board via pyth
 
 
 
+
+
+
 #setup
 
 follow all adafruit setup for smbus/i2c etc from product page.
@@ -25,6 +28,15 @@ Switch i2cPWM_RLY01 "Exec" (exec) {exec=">[ON:/bin/sh@@-c@@/home/pi/OpenHAB_Exec
 Switch i2cPWM_RLY02 "Exec" (exec) {exec=">[ON:/bin/sh@@-c@@/home/pi/OpenHAB_ExecBinding_i2c_PWM/OpenHAB_i2c_PWM.py -r 1 -v 1] >[OFF:/bin/sh@@-c@@/home/pi/OpenHAB_ExecBinding_i2c_PWM/OpenHAB_i2c_PWM.py -r 1 -v 0]"}
 
 //TODO: Add PWM binding here(need to work out passing value to this binding).
+```
+
+then add these to your .sitemap
+```
+Frame label="i2c Exec Binding" {  
+  Switch item=i2cPWM_RLY01 label="Machine that goes BING!!" 
+  Switch item=i2cPWM_RLY02 label="Electric bike charging station" 
+  
+} 
 ```
 
 #usage
@@ -76,6 +88,14 @@ Test
 -t for time between relay sequence in seconds(optional)
 
 
+
+
+#why
+
+The reason for this is to control a mechanical bed  (head and foot raise/lower + head and foot vibrate/massage). 
+I am adding an 8 channel 5v relay board to do the actuators and some Pololu simple high power motor controller boards for the vibration motors. 
+
+However these boards are stack-able and having 900+ channels of relay control/PWM could be quite useful for lighting / fans / blinds whatever. 
 
 
 #references
