@@ -37,6 +37,7 @@ parser = argparse.ArgumentParser(description='Controls PWM hat from Adafruit')
 parser.add_argument('-t', action="store", dest="time", default=1, type=int, nargs='?')
 parser.add_argument('-a', action="store", dest="action", default='test',nargs='?')
 parser.add_argument('-v', action="store", dest="valueNum", default=0, type=int, nargs='?')
+parser.add_argument('-r', action="store", dest="relayNum", default=-1, type=int, nargs='?')
 
 args = parser.parse_args()
 
@@ -46,8 +47,9 @@ slpTime = args.time
 
 # test function
 if args.action == 'test':
-
     # turn on and off  relays on all channels
+    print "in Test"
+
     for x in range(0, 15):
         pwm.setPWM(x, *RLYOFF)
 
@@ -61,6 +63,16 @@ if args.action == 'test':
 
     time.sleep(slpTime)
     quit()
+
+elif args.relayNum != -1:
+    print "Relay "args.relayNum
+    print "Value "args.valueNum
+    if args.valueNum == 1:
+        pwm.setPWM(args.relayNum, *RLYON)
+    else:
+        pwm.setPWM(args.relayNum, *RLYOFF)
+    quit()
+
 else:
     print "where am i"
     quit()
