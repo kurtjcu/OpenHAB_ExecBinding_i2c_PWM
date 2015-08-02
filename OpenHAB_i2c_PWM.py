@@ -30,7 +30,7 @@ RLYOFF = 0, 0
 #    pulse /= pulseLength
 #    pwm.setPWM(channel, 0, pulse)
 
-pwm.setPWMFreq(90)                        # Set frequency to 60 Hz
+#pwm.setPWMFreq(90)                        # Set frequency to 90 Hz
 
 # Argument parsing
 parser = argparse.ArgumentParser(description='Controls PWM hat from Adafruit')
@@ -39,6 +39,7 @@ parser.add_argument('-a', action="store", dest="action", default='test',nargs='?
 parser.add_argument('-v', action="store", dest="valueNum", default=0, type=int, nargs='?')
 parser.add_argument('-r', action="store", dest="relayNum", default=-1, type=int, nargs='?')
 parser.add_argument('-p', action="store", dest="pwmNum", default=-1, type=int, nargs='?')
+parser.add_argument('-f', action="store", dest="pwmFreq", default=--1, type=int, nargs='?')
 
 
 args = parser.parse_args()
@@ -66,6 +67,10 @@ elif args.pwmNum != -1:
     else:
         pwm.setPWM(args.pwmNum, *RLYOFF)
     quit()
+
+elif args.pwmFreq != -1:
+    print "setting PWM Freq = %s" % str(args.pwmFreq)
+    pwm.setPWMFreq(args.pwmFreq)
 
 # test function
 elif args.action == 'test':
