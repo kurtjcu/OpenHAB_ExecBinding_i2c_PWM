@@ -52,12 +52,13 @@ elif args.pwmNum != -1:
     print "Value %s" % args.valueNum
     print "on %s" % str((args.valueNum*4069)/100)
     print "off %s" % str(4069-((args.valueNum*4069)/100))
-    pwm.setPWM(args.pwmNum, 0, args.valueNum)
+    pwm.setPWM(args.pwmNum, 0, (args.valueNum*4069)/100)
     quit()
 
 elif args.pwmFreq != -1:
     print "setting PWM Freq = %s" % str(args.pwmFreq)
     pwm.setPWMFreq(args.pwmFreq)
+    quit()
 
 # test function
 elif args.action == 'test':
