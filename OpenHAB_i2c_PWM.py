@@ -2,6 +2,7 @@
 
 from Adafruit_PWM_Servo_Driver import PWM
 import time
+import sys
 
 # ===========================================================================
 # Example Code
@@ -33,16 +34,24 @@ pwm.setPWMFreq(90)                        # Set frequency to 60 Hz
 
 
 # turn on and off  relays on all channels
+
+if sys.argv[1:] == 'Time':
+    slpTime = int(sys.argv[2:])
+else:
+    slpTime = 1
+
+
+
 for x in range(0, 15):
     pwm.setPWM(x, *RLYOFF)
 
 for x in range(0, 15):
-    time.sleep(1)
+    time.sleep(slpTime)
     pwm.setPWM(x, *RLYON)
 
 for x in range(0, 15):
-    time.sleep(1)
+    time.sleep(slpTime)
     pwm.setPWM(x, *RLYOFF)
 
-time.sleep(1)
+time.sleep(slpTime)
 quit()
