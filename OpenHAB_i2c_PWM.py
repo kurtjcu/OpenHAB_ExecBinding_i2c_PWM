@@ -20,15 +20,15 @@ RLYON = 0, 4069
 RLYOFF = 0, 0
 
 
-def setServoPulse(channel, pulse):
-    pulseLength = 1000000                   # 1,000,000 us per second
-    pulseLength /= 60                       # 60 Hz
-    print "%d us per period" % pulseLength
-    pulseLength /= 4096                     # 12 bits of resolution
-    print "%d us per bit" % pulseLength
-    pulse *= 1000
-    pulse /= pulseLength
-    pwm.setPWM(channel, 0, pulse)
+#def setServoPulse(channel, pulse):
+#    pulseLength = 1000000                   # 1,000,000 us per second
+#    pulseLength /= 60                       # 60 Hz
+#    print "%d us per period" % pulseLength
+#    pulseLength /= 4096                     # 12 bits of resolution
+#    print "%d us per bit" % pulseLength
+#    pulse *= 1000
+#    pulse /= pulseLength
+#    pwm.setPWM(channel, 0, pulse)
 
 pwm.setPWMFreq(90)                        # Set frequency to 60 Hz
 
@@ -38,6 +38,8 @@ parser.add_argument('-t', action="store", dest="time", default=1, type=int, narg
 parser.add_argument('-a', action="store", dest="action", default='test',nargs='?')
 parser.add_argument('-v', action="store", dest="valueNum", default=0, type=int, nargs='?')
 parser.add_argument('-r', action="store", dest="relayNum", default=-1, type=int, nargs='?')
+parser.add_argument('-p', action="store", dest="pwmNum", default=-1, type=int, nargs='?')
+
 
 args = parser.parse_args()
 
@@ -54,6 +56,15 @@ if args.relayNum != -1:
         pwm.setPWM(args.relayNum, *RLYON)
     else:
         pwm.setPWM(args.relayNum, *RLYOFF)
+    quit()
+
+elif args.pwmNum != -1:
+    print "PWM %s" % args.pwmNum
+    print "Value %s" % args.valueNum
+    if args.valueNum == 1:
+        pwm.setPWM(args.pwmNum, (args.valueNum*4069)/100, 4069-(args.valueNum*4069)/100)
+    else:
+        pwm.setPWM(args.pwmNum, *RLYOFF)
     quit()
 
 # test function
