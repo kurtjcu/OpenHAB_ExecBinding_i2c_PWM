@@ -65,8 +65,8 @@ if args.action == 'test':
     quit()
 
 elif args.relayNum != -1:
-    print "Relay "args.relayNum
-    print "Value "args.valueNum
+    print "Relay %s" % args.relayNum
+    print "Value %s" % args.valueNum
     if args.valueNum == 1:
         pwm.setPWM(args.relayNum, *RLYON)
     else:
