@@ -35,7 +35,7 @@ pwm.setPWMFreq(90)                        # Set frequency to 60 Hz
 #print arguments
 for arg in sys.argv:
     print arg
-    type(arg)
+    print type(arg)
 
 
 
