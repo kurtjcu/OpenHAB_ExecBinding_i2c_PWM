@@ -34,29 +34,33 @@ pwm.setPWMFreq(90)                        # Set frequency to 60 Hz
 
 # Argument parsing
 parser = argparse.ArgumentParser(description='Controls PWM hat from Adafruit')
-parser.add_argument('-t', action="store", dest="slpTime", default=1, type=int, nargs='?')
-parser.add_argument('-a', action="store", dest="action", default='none',nargs='?')
+parser.add_argument('-t', action="store", dest="time", default=1, type=int, nargs='?')
+parser.add_argument('-a', action="store", dest="action", default='test',nargs='1')
 parser.add_argument('-v', action="store", dest="valueNum", default=0, type=int, nargs='?')
 
 args = parser.parse_args()
 
-slpTime = args.slpTime
+slpTime = args.time
 
 
 
+# test function
+if args.action == 'test':
 
+    # turn on and off  relays on all channels
+    for x in range(0, 15):
+        pwm.setPWM(x, *RLYOFF)
 
-# turn on and off  relays on all channels
-for x in range(0, 15):
-    pwm.setPWM(x, *RLYOFF)
+    for x in range(0, 15):
+        time.sleep(slpTime)
+        pwm.setPWM(x, *RLYON)
 
-for x in range(0, 15):
+    for x in range(0, 15):
+        time.sleep(slpTime)
+        pwm.setPWM(x, *RLYOFF)
+
     time.sleep(slpTime)
-    pwm.setPWM(x, *RLYON)
-
-for x in range(0, 15):
-    time.sleep(slpTime)
-    pwm.setPWM(x, *RLYOFF)
-
-time.sleep(slpTime)
-quit()
+    quit()
+else:
+    print "where am i"
+    quit()
