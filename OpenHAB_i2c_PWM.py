@@ -27,7 +27,7 @@ parser.add_argument('-a', action="store", dest="action", default='test',nargs='?
 parser.add_argument('-v', action="store", dest="valueNum", default=0, type=int, nargs='?')
 parser.add_argument('-r', action="store", dest="relayNum", default=-1, type=int, nargs='?')
 parser.add_argument('-p', action="store", dest="pwmNum", default=-1, type=int, nargs='?')
-parser.add_argument('-f', action="store", dest="pwmFreq", default=--1, type=int, nargs='?')
+parser.add_argument('-f', action="store", dest="pwmFreq", default=-1, type=int, nargs='?')
 
 
 args = parser.parse_args()
@@ -39,8 +39,6 @@ slpTime = args.time
 
 
 if args.relayNum != -1:
-    print "Relay %s" % args.relayNum
-    print "Value %s" % args.valueNum
     if args.valueNum == 1:
         pwm.setPWM(args.relayNum, *RLYON)
     else:
@@ -48,15 +46,10 @@ if args.relayNum != -1:
     quit()
 
 elif args.pwmNum != -1:
-    print "PWM %s" % args.pwmNum
-    print "Value %s" % args.valueNum
-    print "on %s" % str((args.valueNum*4069)/100)
-    print "off %s" % str(4069-((args.valueNum*4069)/100))
     pwm.setPWM(args.pwmNum, 0, (args.valueNum*4069)/100)
     quit()
 
 elif args.pwmFreq != -1:
-    print "setting PWM Freq = %s" % str(args.pwmFreq)
     pwm.setPWMFreq(args.pwmFreq)
     quit()
 
