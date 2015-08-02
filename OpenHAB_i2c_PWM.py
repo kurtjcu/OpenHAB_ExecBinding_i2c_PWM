@@ -33,16 +33,18 @@ pwm.setPWMFreq(90)                        # Set frequency to 60 Hz
 
 
 #print arguments
-for arg in sys.argv:
-    print arg
-    print type(arg)
+for x in range(0, 2):
+    print sys.argv[x:]
+    print type(sys.argv[x:])
 
 
 
 # get time from arguments
 if sys.argv[1:] == "Time":
+    print "found Time in arguments"
     slpTime = int(sys.argv[2:])
 else:
+    print "did not find Time in arguments"
     slpTime = 1
 
 
