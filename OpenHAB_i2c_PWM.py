@@ -35,7 +35,7 @@ pwm.setPWMFreq(90)                        # Set frequency to 60 Hz
 # Argument parsing
 parser = argparse.ArgumentParser(description='Controls PWM hat from Adafruit')
 parser.add_argument('-t', action="store", dest="time", default=1, type=int, nargs='?')
-parser.add_argument('-a', action="store", dest="action", default='test',nargs='1')
+parser.add_argument('-a', action="store", dest="action", default='test',nargs='?')
 parser.add_argument('-v', action="store", dest="valueNum", default=0, type=int, nargs='?')
 
 args = parser.parse_args()
