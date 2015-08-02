@@ -40,7 +40,7 @@ parser.add_argument('-v', action="store", dest="valueNum", default=0, type=int, 
 
 args = parser.parse_args()
 
-
+slpTime = args.slpTime
 
 
 
