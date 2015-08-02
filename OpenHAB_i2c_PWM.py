@@ -32,16 +32,21 @@ def setServoPulse(channel, pulse):
 pwm.setPWMFreq(90)                        # Set frequency to 60 Hz
 
 
+#print arguments
+for arg in sys.argv:
+    print arg
+    type(arg)
 
-# turn on and off  relays on all channels
 
+
+# get time from arguments
 if sys.argv[1:] == 'Time':
     slpTime = int(sys.argv[2:])
 else:
     slpTime = 1
 
 
-
+# turn on and off  relays on all channels
 for x in range(0, 15):
     pwm.setPWM(x, *RLYOFF)
 
