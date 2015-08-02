@@ -26,9 +26,9 @@ def setServoPulse(channel, pulse):
 pwm.setPWMFreq(90)                        # Set frequency to 60 Hz
 
 #define On 100%
-rlyOn = " 0, 4069"
+rlyOn = '0, 4069'
 #define Off 0%
-rlyOff = "4069, 0"
+rlyOff = '4069, 0'
 
 while (True):
   # turn on and off a relay on channel O
