@@ -1,10 +1,11 @@
 #!/usr/bin/python
 
-from Adafruit_PWM_Servo_Driver import PWM
 import time
-import sys
-import argparse
-from bottle import route, run, template
+
+from Adafruit_PWM_Servo_Driver import PWM
+from bottle import route, run
+import meinheld
+
 
 
 # ===========================================================================
@@ -16,9 +17,9 @@ from bottle import route, run, template
 # Note if you'd like more debug output you can instead run:
 pwm = PWM(0x40, debug=True)
 
-#define On 100%
+# define On 100%
 RLYOFF = 0, 4069
-#define Off 0%
+# define Off 0%
 RLYON = 0, 0
 
 head_offset = 0
@@ -29,25 +30,42 @@ foot_offset = 2
 def index():
     return 'hello, world'
 
+
 @route('/head/up/<status>')
-def tune(status = 'off'):
+def head_up(status='off'):
     set_head_up(status)
     return 'ack'
 
+
 @route('/head/down/<status>')
-def tune(status = 'off'):
+def head_down(status='off'):
     set_head_down(status)
     return 'ack'
 
+
 @route('/foot/up/<status>')
-def tune(status = 'off'):
+def foot_up(status='off'):
     set_foot_up(status)
     return 'ack'
 
+
 @route('/foot/down/<status>')
-def tune(status = 'off'):
+def foot_down(status='off'):
     set_foot_down(status)
     return 'ack'
+
+
+@route('/preset/<preset name>')
+def preset(name="none"):
+    if name == "flat":
+        set_head_down("on")
+        set_foot_down("on")
+        time.sleep(10)
+        set_head_down('off')
+        set_foot_down('off')
+        return 'ack'
+    else:
+        return 'unknown preset'
 
 
 def set_head_up(state):
@@ -70,6 +88,7 @@ def set_head_down(state):
         pwm.setPWM(head_offset, *RLYOFF)
         pwm.setPWM(head_offset + 4, *RLYOFF)
 
+
 def set_foot_up(state):
     pwm.setPWM(foot_offset + 1, *RLYOFF)
     pwm.setPWM(foot_offset + 5, *RLYOFF)
@@ -91,11 +110,4 @@ def set_foot_down(state):
         pwm.setPWM(foot_offset + 4, *RLYOFF)
 
 
-
-run(host="0.0.0.0", port=5151)
-
-
-
-
-
-
+run(server="meinheld", host="0.0.0.0", port=5151, reloader=True)
