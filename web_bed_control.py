@@ -5,6 +5,7 @@ import time
 from Adafruit_PWM_Servo_Driver import PWM
 from bottle import route, run
 import meinheld
+from threading import Thread
 
 
 
@@ -55,14 +56,10 @@ def foot_down(status='off'):
     return 'ack'
 
 
-@route('/preset/<preset name>')
-def preset(name="none"):
-    if name == "flat":
-        set_head_down("on")
-        set_foot_down("on")
-        time.sleep(10)
-        set_head_down('off')
-        set_foot_down('off')
+@route('/preset/<preset_name>')
+def preset(preset_name="none"):
+    if preset_name == "flat":
+        Thread(target=set_preset_flat).start()
         return 'ack'
     else:
         return 'unknown preset'
@@ -109,5 +106,11 @@ def set_foot_down(state):
         pwm.setPWM(foot_offset, *RLYOFF)
         pwm.setPWM(foot_offset + 4, *RLYOFF)
 
+def set_preset_flat(time=10):
+    set_head_down("on")
+    set_foot_down("on")
+    time.sleep(10)
+    set_head_down('off')
+    set_foot_down('off')
 
 run(server="meinheld", host="0.0.0.0", port=5151, reloader=True)
