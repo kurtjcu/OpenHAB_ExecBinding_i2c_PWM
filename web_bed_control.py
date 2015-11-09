@@ -1,11 +1,10 @@
 #!/usr/bin/python
 
 import time
+from threading import Thread
 
 from Adafruit_PWM_Servo_Driver import PWM
 from bottle import route, run
-from threading import Thread
-
 
 
 # ===========================================================================
@@ -24,6 +23,9 @@ RLYON = 0, 0
 
 head_offset = 0
 foot_offset = 2
+
+vibrate_head_offset = 8
+vibrate_foot_offset = 9
 
 
 @route('/')
@@ -60,8 +62,24 @@ def preset(preset_name="none"):
     if preset_name == "flat":
         Thread(target=set_preset_flat).start()
         return 'ack'
+    elif preset_name == "all_off":
+        Thread(target=set_preset_flat).start()
+        pwm.setPWM(vibrate_head_offset, 0, 0)
+        pwm.setPWM(vibrate_foot_offset, 0, 0)
+        return 'ack'
     else:
         return 'unknown preset'
+
+@route('/vibrate/head/<speed>')
+def vibrate_head(speed = 0):
+    pwm.setPWM(vibrate_head_offset, 0, 30 * speed)
+    return "ack"
+
+@route('/vibrate/foot/<speed>')
+def vibrate_foot(speed = 0):
+    pwm.setPWM(vibrate_foot_offset, 0, 30 * speed)
+    return "ack"
+
 
 
 def set_head_up(state):
@@ -73,6 +91,7 @@ def set_head_up(state):
     else:
         pwm.setPWM(head_offset, *RLYOFF)
         pwm.setPWM(head_offset + 4, *RLYOFF)
+
 
 def set_head_down(state):
     pwm.setPWM(head_offset + 1, *RLYON)
@@ -95,6 +114,7 @@ def set_foot_up(state):
         pwm.setPWM(foot_offset, *RLYOFF)
         pwm.setPWM(foot_offset + 4, *RLYOFF)
 
+
 def set_foot_down(state):
     pwm.setPWM(foot_offset + 1, *RLYON)
     pwm.setPWM(foot_offset + 5, *RLYON)
@@ -105,11 +125,13 @@ def set_foot_down(state):
         pwm.setPWM(foot_offset, *RLYOFF)
         pwm.setPWM(foot_offset + 4, *RLYOFF)
 
+
 def set_preset_flat(delay_time=10):
     set_head_down("on")
     set_foot_down("on")
     time.sleep(delay_time)
     set_head_down('off')
     set_foot_down('off')
+
 
 run(server="meinheld", host="0.0.0.0", port=5151, reloader=True)
