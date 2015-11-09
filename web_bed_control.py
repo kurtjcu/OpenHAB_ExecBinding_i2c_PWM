@@ -72,12 +72,12 @@ def preset(preset_name="none"):
 
 @route('/vibrate/head/<speed>')
 def vibrate_head(speed = 0):
-    pwm.setPWM(vibrate_head_offset, 0, 30 * speed)
+    pwm.setPWM(vibrate_head_offset, 0, 30 * int(speed))
     return "ack"
 
 @route('/vibrate/foot/<speed>')
 def vibrate_foot(speed = 0):
-    pwm.setPWM(vibrate_foot_offset, 0, 30 * speed)
+    pwm.setPWM(vibrate_foot_offset, 0, 30 * int(speed))
     return "ack"
 
 
