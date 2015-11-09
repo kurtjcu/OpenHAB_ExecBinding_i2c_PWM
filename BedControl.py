@@ -15,7 +15,7 @@ import argparse
 pwm = PWM(0x40, debug=True)
 
 #define On 100%
-RLYOff = 0, 4069
+RLYOFF = 0, 4069
 #define Off 0%
 RLYON = 0, 0
 
@@ -36,32 +36,32 @@ parser.add_argument('-s', action="store", dest="status", default="off", type=str
 args = parser.parse_args()
 
 
-if end_of_bed == "head":
-    if direction == "up":
+if args.end_of_bed == "head":
+    if args.direction == "up":
         pwm.setPWM(head_offset + 1, *RLYOFF)
-        if status == "off":
+        if args.status == "off":
             pwm.setPWM(head_offset, *RLYOFF)
-        elif status == "on":
+        elif args.status == "on":
             pwm.setPWM(head_offset, *RLYON)
-    elif direction == "down":
+    elif args.direction == "down":
         pwm.setPWM(head_offset + 1, *RLYON)
-        if status == "off":
+        if args.status == "off":
             pwm.setPWM(head_offset, *RLYOFF)
-        elif status == "on":
+        elif args.status == "on":
             pwm.setPWM(head_offset, *RLYON)
 
-elif end_of_bed == "foot":
-    if direction == "up":
+elif args.end_of_bed == "foot":
+    if args.direction == "up":
         pwm.setPWM(foot_offset + 1, *RLYOFF)
-        if status == "off":
+        if args.status == "off":
             pwm.setPWM(foot_offset, *RLYOFF)
-        elif status == "on":
+        elif args.status == "on":
             pwm.setPWM(foot_offset, *RLYON)
-    elif direction == "down":
+    elif args.direction == "down":
         pwm.setPWM(foot_offset + 1, *RLYON)
-        if status == "off":
+        if args.status == "off":
             pwm.setPWM(foot_offset, *RLYOFF)
-        elif status == "on":
+        elif args.status == "on":
             pwm.setPWM(foot_offset, *RLYON)
 
 
