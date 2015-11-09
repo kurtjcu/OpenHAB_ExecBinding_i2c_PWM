@@ -4,7 +4,6 @@ import time
 
 from Adafruit_PWM_Servo_Driver import PWM
 from bottle import route, run
-import meinheld
 from threading import Thread
 
 
@@ -106,10 +105,10 @@ def set_foot_down(state):
         pwm.setPWM(foot_offset, *RLYOFF)
         pwm.setPWM(foot_offset + 4, *RLYOFF)
 
-def set_preset_flat(time=10):
+def set_preset_flat(delay_time=10):
     set_head_down("on")
     set_foot_down("on")
-    time.sleep(10)
+    time.sleep(delay_time)
     set_head_down('off')
     set_foot_down('off')
 
