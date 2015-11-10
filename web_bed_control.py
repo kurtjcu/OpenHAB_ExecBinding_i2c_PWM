@@ -80,6 +80,11 @@ def vibrate_foot(speed = 0):
     pwm.setPWM(vibrate_foot_offset, 0, 30 * int(speed))
     return "ack"
 
+@route('/freq/<frequency>')
+def set_freq(frequency=100):
+    pwm.setPWMFreq(int(frequency))
+    return 'ack'
+
 
 
 def set_head_up(state):
